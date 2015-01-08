@@ -10,6 +10,9 @@ use Error::Pure::Always;
 use Error::Pure qw(err);
 use Mo qw(builder is required);
 
+# Version.
+our $VERSION = 0.02;
+
 has date => (
 	'is' => 'ro',
 	'required' => 1,
@@ -54,6 +57,9 @@ sub _datetime {
 	my ($year, $month, $day) = split m/-/ms, $self->date;
 	my ($hour, $min, $sec_mili) = split m/:/ms, $self->time;
 	my ($sec, $mili) = split m/\./ms, $sec_mili;
+	if (! defined $mili) {
+		$mili = 0;
+	}
 	my $dt = eval {
 		DateTime->new(
 			'year' => $year,
@@ -255,6 +261,6 @@ L<http://skim.cz>
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
